@@ -2,12 +2,14 @@
 #define BERKELEYLM_ARPA_LM_READER_H_
 #include <string>
 #include <list>
+#include <ifstream>
 
 /**
  * @author Bharath Ramsundar
  * Contains class ArpaLmReader that reads in ARPA format files
  */
 class WordIndexer;
+class ArpaLmReaderCallback;
 
 class ArpaLmReader {
     private:
@@ -17,22 +19,25 @@ class ArpaLmReader {
         int currentNGramCount = 0;
         int currentNGramLength = 1;
         int lineNumber = 1;
-        string file;
-        WordIndexer wordIndexer;
-        const int maxOrder;
-        private int[] parseNGram(string, int);
+        int maxOrder;
+        ifstream file;
+        string line;
+        WordIndexer& wordIndexer;
+        ArpaLmReaderCallback& callback;
+        int[] parseNGram(string, int);
 
     protected:
+        string readLine();
         list<long> parseHeader();
-        parseNGrams();
-        parseLine(string);
+        void parseNGrams();
+        void parseLine(string);
         
     
     public:
         string readLine();
         ArpaLmReader(string, WordIndexer, int);
         ~ArpaLmReader();
-        parse(ArpaLmReaderCallback);
+        void parse(ArpaLmReaderCallback);
 }
 
 #endif // BEREKELEYLM_ARPA_LM_READER_H_
