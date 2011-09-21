@@ -20,8 +20,9 @@ class ArpaLmReader {
         int currentNGramLength = 1;
         int lineNumber = 1;
         int maxOrder;
+        string filename;
         ifstream file;
-        string line;
+        string read_line;
         WordIndexer& wordIndexer;
         ArpaLmReaderCallback& callback;
         int[] parseNGram(string, int);
